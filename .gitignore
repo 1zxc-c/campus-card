@@ -1,0 +1,9 @@
+node_modules/
+app/
+package-lock.json
+test-out.png
+dev-logs/
+docs/
+CLAUDE.md
+renderer/
+assets/
