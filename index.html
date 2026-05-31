@@ -533,8 +533,8 @@
     if (!img || !timeEl || !container) return;
     var imgRect = img.getBoundingClientRect();
     var ctRect = container.getBoundingClientRect();
-    var topPx = (imgRect.top - ctRect.top) + imgRect.height * 0.27;
-    var leftPx = (imgRect.left - ctRect.left) + imgRect.width * 0.64;
+    var topPx = (imgRect.top - ctRect.top) + imgRect.height * 0.275;
+    var leftPx = (imgRect.left - ctRect.left) + imgRect.width * 0.60;
     timeEl.style.top = topPx + "px";
     timeEl.style.left = leftPx + "px";
     timeEl.style.transform = "translateX(-50%)";
