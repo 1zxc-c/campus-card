@@ -286,8 +286,8 @@
       visibility: hidden;
     }
     .scan-img-time .time-date {
-      font-size: 11px;
-      letter-spacing: 1.1px;
+      font-size: 13px;
+      letter-spacing: 1.3px;
       vertical-align: baseline;
     }
     .scan-img-time .time-dash {
@@ -295,8 +295,8 @@
       letter-spacing: 0;
     }
     .scan-img-time .time-clock {
-      font-size: 14px;
-      letter-spacing: 0.7px;
+      font-size: 17px;
+      letter-spacing: 0.8px;
       vertical-align: baseline;
     }
 
@@ -334,152 +334,10 @@
 
   <!-- ========== HOME SCREEN ========== -->
   <div id="homeScreen">
-
-    <!-- Status Bar -->
-    <div class="status-bar">
-      <span id="statusTime">12:00</span>
-      <div class="status-icons">
-        <span>5G</span>
-        <span>▮▮▮▮</span>
-        <span>🔋</span>
-      </div>
+    <div style="position:relative;width:100%;">
+      <img src="home.png" alt="今日校园" style="width:100%;display:block;">
+      <div id="scanBtn" style="position:absolute;top:3%;right:3%;width:48px;height:48px;cursor:pointer;z-index:10;"></div>
     </div>
-
-    <!-- Top Navigation -->
-    <div class="top-nav">
-      <span class="nav-icon">☰</span>
-      <span class="nav-title">今日校园</span>
-      <span class="nav-icon" style="opacity:0.7;">🔍</span>
-      <span class="scan-icon" id="scanBtn" title="扫码">📷</span>
-    </div>
-
-    <!-- Banner -->
-    <div class="banner-wrap">
-      <div class="banner-img">
-        <span class="banner-text">天津生物工程职业技术学院</span>
-      </div>
-    </div>
-    <div class="banner-bottom"></div>
-
-    <!-- Search -->
-    <div class="search-wrap">
-      <span class="search-icon">🔍</span>
-      <span class="search-text">搜索服务、应用、资讯</span>
-    </div>
-
-    <!-- 热门服务 -->
-    <div class="section">
-      <div class="section-header">
-        <span class="section-title">热门服务</span>
-        <span class="section-more">更多 ›</span>
-      </div>
-      <div class="service-grid">
-        <div class="service-item"><span class="s-icon blue">📝</span><span class="s-label">签到</span></div>
-        <div class="service-item"><span class="s-icon orange">🤝</span><span class="s-label">别人代</span></div>
-        <div class="service-item"><span class="s-icon green">📋</span><span class="s-label">请假</span></div>
-        <div class="service-item"><span class="s-icon purple">🏠</span><span class="s-label">查寝</span></div>
-        <div class="service-item"><span class="s-icon teal">📊</span><span class="s-label">信息收集</span></div>
-        <div class="service-item"><span class="s-icon pink">🎯</span><span class="s-label">活动报名</span></div>
-        <div class="service-item"><span class="s-icon indigo">🔔</span><span class="s-label">辅导员通知</span></div>
-        <div class="service-item"><span class="s-icon blue">📁</span><span class="s-label">项目申请</span></div>
-      </div>
-      <div style="text-align:center;margin-top:12px;">
-        <span style="font-size:12px;color:#4A8FE0;cursor:pointer;">更多 ›</span>
-      </div>
-    </div>
-
-    <!-- 学工服务 -->
-    <div class="section">
-      <div class="section-header">
-        <span class="section-title">学工服务</span>
-        <span class="section-more">更多 ›</span>
-      </div>
-      <div class="service-grid col5">
-        <div class="service-item"><span class="s-icon green">📋</span><span class="s-label">请假</span></div>
-        <div class="service-item"><span class="s-icon purple">🏠</span><span class="s-label">查寝</span></div>
-        <div class="service-item"><span class="s-icon pink">🎯</span><span class="s-label">活动报名</span></div>
-        <div class="service-item"><span class="s-icon teal">📊</span><span class="s-label">信息收集</span></div>
-        <div class="service-item"><span class="s-icon indigo">🔔</span><span class="s-label">通知</span></div>
-        <div class="service-item"><span class="s-icon orange">⭐</span><span class="s-label">宿舍打分</span></div>
-        <div class="service-item"><span class="s-icon blue">📅</span><span class="s-label">课表</span></div>
-        <div class="service-item"><span class="s-icon green">📈</span><span class="s-label">成绩</span></div>
-        <div class="service-item"><span class="s-icon purple">⋯</span><span class="s-label">更多</span></div>
-      </div>
-    </div>
-
-    <!-- 求学服务 -->
-    <div class="section">
-      <div class="section-header">
-        <span class="section-title">求学服务</span>
-        <span class="section-more">全部 ›</span>
-      </div>
-      <div class="service-grid col5">
-        <div class="service-item"><span class="s-icon blue">📅</span><span class="s-label">课表</span></div>
-        <div class="service-item"><span class="s-icon green">📈</span><span class="s-label">成绩</span></div>
-        <div class="service-item"><span class="s-icon orange">📖</span><span class="s-label">四六级</span></div>
-        <div class="service-item"><span class="s-icon purple">📋</span><span class="s-label">全部</span></div>
-      </div>
-    </div>
-
-    <!-- 全部服务 -->
-    <div class="section">
-      <div class="section-header">
-        <span class="section-title">全部服务</span>
-        <span class="section-more">更多 ›</span>
-      </div>
-      <div class="service-grid col5">
-        <div class="service-item"><span class="s-icon green">📋</span><span class="s-label">请假</span></div>
-        <div class="service-item"><span class="s-icon purple">🏠</span><span class="s-label">查寝</span></div>
-        <div class="service-item"><span class="s-icon pink">🎯</span><span class="s-label">活动报名</span></div>
-        <div class="service-item"><span class="s-icon teal">📊</span><span class="s-label">信息收集</span></div>
-        <div class="service-item"><span class="s-icon indigo">🔔</span><span class="s-label">通知</span></div>
-        <div class="service-item"><span class="s-icon orange">⭐</span><span class="s-label">宿舍打分</span></div>
-        <div class="service-item"><span class="s-icon blue">📅</span><span class="s-label">课表</span></div>
-        <div class="service-item"><span class="s-icon green">📈</span><span class="s-label">成绩</span></div>
-        <div class="service-item"><span class="s-icon purple">⋯</span><span class="s-label">更多</span></div>
-      </div>
-    </div>
-
-    <!-- 校园生活 -->
-    <div class="section">
-      <div class="section-header">
-        <span class="section-title">校园生活</span>
-        <span class="section-more">更多 ›</span>
-      </div>
-      <div class="service-grid col5">
-        <div class="service-item"><span class="s-icon teal">💳</span><span class="s-label">校园卡</span></div>
-        <div class="service-item"><span class="s-icon blue">📱</span><span class="s-label">校园码</span></div>
-        <div class="service-item"><span class="s-icon orange">⚡</span><span class="s-label">缴电费</span></div>
-        <div class="service-item"><span class="s-icon green">🌐</span><span class="s-label">网络服务</span></div>
-        <div class="service-item"><span class="s-icon pink">📸</span><span class="s-label">随手拍</span></div>
-        <div class="service-item"><span class="s-icon indigo">📰</span><span class="s-label">校园头条</span></div>
-        <div class="service-item"><span class="s-icon purple">📅</span><span class="s-label">我的预约</span></div>
-      </div>
-    </div>
-
-    <!-- Bottom padding -->
-    <div style="height: 20px;"></div>
-
-    <!-- Bottom Navigation -->
-    <div class="bottom-nav">
-      <div class="nav-item active">
-        <span class="nav-emoji">🏠</span>
-        <span>首页</span>
-      </div>
-      <div class="nav-item">
-        <span class="nav-emoji">📋</span>
-        <span>服务</span>
-      </div>
-      <div class="nav-item">
-        <span class="nav-emoji">💬</span>
-        <span>消息</span>
-      </div>
-      <div class="nav-item">
-        <span class="nav-emoji">👤</span>
-        <span>我的</span>
-      </div>
-    </div>
-
   </div><!-- /homeScreen -->
 
 </div><!-- /appContainer -->
@@ -533,7 +391,7 @@
     if (!img || !timeEl || !container) return;
     var imgRect = img.getBoundingClientRect();
     var ctRect = container.getBoundingClientRect();
-    var topPx = (imgRect.top - ctRect.top) + imgRect.height * 0.281;
+    var topPx = (imgRect.top - ctRect.top) + imgRect.height * 0.283;
     var leftPx = (imgRect.left - ctRect.left) + imgRect.width * 0.60;
     timeEl.style.top = topPx + "px";
     timeEl.style.left = leftPx + "px";
