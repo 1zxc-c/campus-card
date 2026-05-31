@@ -280,7 +280,7 @@
       color: #FDFCFE;
       font-weight: 400;
       font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
-      pointer-events: none;
+      pointer-events: auto;
       background: transparent;
       white-space: nowrap;
       visibility: hidden;
@@ -336,7 +336,7 @@
   <div id="homeScreen">
     <div style="position:relative;width:100%;">
       <img src="home.png" alt="今日校园" style="width:100%;display:block;">
-      <div id="scanBtn" style="position:absolute;top:5%;right:2%;width:44px;height:44px;background:rgba(74,143,224,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;cursor:pointer;z-index:10;">📷</div>
+      <div id="scanBtn" style="position:absolute;top:10%;right:2%;width:44px;height:44px;background:rgba(74,143,224,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;cursor:pointer;z-index:10;">📷</div>
     </div>
   </div><!-- /homeScreen -->
 
@@ -385,6 +385,11 @@
     if (dEl) dEl.textContent = d;
     if (clockEl) clockEl.textContent = h + ':' + mi + ':' + s;
   }
+  // ===== Drag & pinch state =====
+  var timeDrag = { on: false, sx: 0, sy: 0, sl: 0, st: 0 };
+  var timeScale = 1;
+  var timePinch = { on: false, sd: 0, ss: 1 };
+
   // ===== Reposition time to match image actual bounds =====
   function repositionScanTime() {
     var img = document.getElementById("scanImg");
@@ -397,9 +402,63 @@
     var leftPx = (imgRect.left - ctRect.left) + imgRect.width * 0.60;
     timeEl.style.top = topPx + "px";
     timeEl.style.left = leftPx + "px";
-    timeEl.style.transform = "translateX(-50%)";
+    timeEl.style.transform = "translateX(-50%) scale(" + timeScale + ")";
     timeEl.style.visibility = "visible";
   }
+
+  // ===== Make time draggable + pinch-zoomable =====
+  (function() {
+    var el = document.getElementById("scanTime");
+    if (!el) return;
+
+    function updateTransform() {
+      el.style.transform = "translateX(-50%) scale(" + timeScale + ")";
+    }
+
+    el.addEventListener("mousedown", function(e) {
+      e.preventDefault();
+      timeDrag.on = true;
+      timeDrag.sx = e.clientX; timeDrag.sy = e.clientY;
+      timeDrag.sl = parseFloat(el.style.left) || 0;
+      timeDrag.st = parseFloat(el.style.top) || 0;
+    });
+    document.addEventListener("mousemove", function(e) {
+      if (!timeDrag.on) return;
+      el.style.left = (timeDrag.sl + e.clientX - timeDrag.sx) + "px";
+      el.style.top = (timeDrag.st + e.clientY - timeDrag.sy) + "px";
+    });
+    document.addEventListener("mouseup", function() { timeDrag.on = false; });
+
+    el.addEventListener("touchstart", function(e) {
+      if (e.touches.length === 1) {
+        timeDrag.on = true; timePinch.on = false;
+        timeDrag.sx = e.touches[0].clientX; timeDrag.sy = e.touches[0].clientY;
+        timeDrag.sl = parseFloat(el.style.left) || 0;
+        timeDrag.st = parseFloat(el.style.top) || 0;
+      } else if (e.touches.length === 2) {
+        timeDrag.on = false; timePinch.on = true;
+        var dx = e.touches[0].clientX - e.touches[1].clientX;
+        var dy = e.touches[0].clientY - e.touches[1].clientY;
+        timePinch.sd = Math.sqrt(dx*dx + dy*dy);
+        timePinch.ss = timeScale;
+      }
+    }, {passive: false});
+    document.addEventListener("touchmove", function(e) {
+      if (timeDrag.on && e.touches.length === 1) {
+        e.preventDefault();
+        el.style.left = (timeDrag.sl + e.touches[0].clientX - timeDrag.sx) + "px";
+        el.style.top = (timeDrag.st + e.touches[0].clientY - timeDrag.sy) + "px";
+      } else if (timePinch.on && e.touches.length === 2) {
+        e.preventDefault();
+        var dx = e.touches[0].clientX - e.touches[1].clientX;
+        var dy = e.touches[0].clientY - e.touches[1].clientY;
+        var dist = Math.sqrt(dx*dx + dy*dy);
+        timeScale = Math.max(0.2, Math.min(5, timePinch.ss * (dist / timePinch.sd)));
+        updateTransform();
+      }
+    }, {passive: false});
+    document.addEventListener("touchend", function() { timeDrag.on = false; timePinch.on = false; });
+  })();
 
   // ===== Scan button → show full screen image =====
   var scanOverlay = document.getElementById('scanOverlay');
