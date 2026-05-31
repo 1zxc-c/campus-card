@@ -409,12 +409,14 @@
   // ===== Make time draggable + pinch-zoomable =====
   (function() {
     var el = document.getElementById("scanTime");
-    if (!el) return;
+    var ct = document.getElementById("scanImgContainer");
+    if (!el || !ct) return;
 
     function updateTransform() {
       el.style.transform = "translateX(-50%) scale(" + timeScale + ")";
     }
 
+    // Mouse drag on time element
     el.addEventListener("mousedown", function(e) {
       e.preventDefault();
       timeDrag.on = true;
@@ -429,13 +431,18 @@
     });
     document.addEventListener("mouseup", function() { timeDrag.on = false; });
 
+    // Touch: drag on time element, pinch on container (larger area)
     el.addEventListener("touchstart", function(e) {
       if (e.touches.length === 1) {
         timeDrag.on = true; timePinch.on = false;
         timeDrag.sx = e.touches[0].clientX; timeDrag.sy = e.touches[0].clientY;
         timeDrag.sl = parseFloat(el.style.left) || 0;
         timeDrag.st = parseFloat(el.style.top) || 0;
-      } else if (e.touches.length === 2) {
+      }
+    }, {passive: false});
+
+    ct.addEventListener("touchstart", function(e) {
+      if (e.touches.length === 2) {
         timeDrag.on = false; timePinch.on = true;
         var dx = e.touches[0].clientX - e.touches[1].clientX;
         var dy = e.touches[0].clientY - e.touches[1].clientY;
@@ -443,6 +450,7 @@
         timePinch.ss = timeScale;
       }
     }, {passive: false});
+
     document.addEventListener("touchmove", function(e) {
       if (timeDrag.on && e.touches.length === 1) {
         e.preventDefault();
@@ -457,7 +465,10 @@
         updateTransform();
       }
     }, {passive: false});
-    document.addEventListener("touchend", function() { timeDrag.on = false; timePinch.on = false; });
+    document.addEventListener("touchend", function(e) {
+      timeDrag.on = false;
+      if (e.touches.length < 2) timePinch.on = false;
+    });
   })();
 
   // ===== Scan button → show full screen image =====
