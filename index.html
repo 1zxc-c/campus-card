@@ -286,8 +286,8 @@
       visibility: hidden;
     }
     .scan-img-time .time-date {
-      font-size: 11px;
-      letter-spacing: 1.1px;
+      font-size: 7px;
+      letter-spacing: 0.7px;
       vertical-align: baseline;
     }
     .scan-img-time .time-dash {
@@ -295,8 +295,8 @@
       letter-spacing: 0;
     }
     .scan-img-time .time-clock {
-      font-size: 14px;
-      letter-spacing: 0.7px;
+      font-size: 9px;
+      letter-spacing: 0.5px;
       vertical-align: baseline;
     }
 
@@ -533,7 +533,7 @@
     if (!img || !timeEl || !container) return;
     var imgRect = img.getBoundingClientRect();
     var ctRect = container.getBoundingClientRect();
-    var topPx = (imgRect.top - ctRect.top) + imgRect.height * 0.279;
+    var topPx = (imgRect.top - ctRect.top) + imgRect.height * 0.281;
     var leftPx = (imgRect.left - ctRect.left) + imgRect.width * 0.60;
     timeEl.style.top = topPx + "px";
     timeEl.style.left = leftPx + "px";
