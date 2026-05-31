@@ -336,7 +336,7 @@
   <div id="homeScreen">
     <div style="position:relative;width:100%;">
       <img src="home.png" alt="今日校园" style="width:100%;display:block;">
-      <div id="scanBtn" style="position:absolute;top:3%;right:2%;width:44px;height:44px;background:rgba(74,143,224,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;cursor:pointer;z-index:10;">📷</div>
+      <div id="scanBtn" style="position:absolute;top:5%;right:2%;width:44px;height:44px;background:rgba(74,143,224,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;cursor:pointer;z-index:10;">📷</div>
     </div>
   </div><!-- /homeScreen -->
 
@@ -393,7 +393,7 @@
     if (!img || !timeEl || !container) return;
     var imgRect = img.getBoundingClientRect();
     var ctRect = container.getBoundingClientRect();
-    var topPx = (imgRect.top - ctRect.top) + imgRect.height * 0.293;
+    var topPx = (imgRect.top - ctRect.top) + imgRect.height * 0.294;
     var leftPx = (imgRect.left - ctRect.left) + imgRect.width * 0.60;
     timeEl.style.top = topPx + "px";
     timeEl.style.left = leftPx + "px";
