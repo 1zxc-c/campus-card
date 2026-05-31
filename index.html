@@ -271,12 +271,11 @@
     }
     .scan-close:active { background: rgba(0,0,0,0.6); }
 
-    /* Dynamic time — draggable, transparent bg, date small + time large */
+    /* Dynamic time — positioned by JS relative to actual image bounds */
     .scan-img-time {
       position: absolute;
-      top: 29.5%;
-      left: 54%;
-      transform: translateX(-50%);
+      top: 0;
+      left: 0;
       text-align: center;
       color: #FDFCFE;
       font-weight: 400;
@@ -284,6 +283,7 @@
       pointer-events: none;
       background: transparent;
       white-space: nowrap;
+      visibility: hidden;
     }
     .scan-img-time .time-date {
       font-size: 20px;
@@ -525,6 +525,21 @@
     if (dEl) dEl.textContent = d;
     if (clockEl) clockEl.textContent = h + ':' + mi + ':' + s;
   }
+  // ===== Reposition time to match image actual bounds =====
+  function repositionScanTime() {
+    var img = document.getElementById("scanImg");
+    var timeEl = document.getElementById("scanTime");
+    var container = document.getElementById("scanImgContainer");
+    if (!img || !timeEl || !container) return;
+    var imgRect = img.getBoundingClientRect();
+    var ctRect = container.getBoundingClientRect();
+    var topPx = (imgRect.top - ctRect.top) + imgRect.height * 0.295;
+    var leftPx = (imgRect.left - ctRect.left) + imgRect.width * 0.54;
+    timeEl.style.top = topPx + "px";
+    timeEl.style.left = leftPx + "px";
+    timeEl.style.transform = "translateX(-50%)";
+    timeEl.style.visibility = "visible";
+  }
 
   // ===== Scan button → show full screen image =====
   var scanOverlay = document.getElementById('scanOverlay');
@@ -532,17 +547,22 @@
     updateScanTime();
     if (scanTimer) clearInterval(scanTimer);
     scanTimer = setInterval(updateScanTime, 1000);
-    scanOverlay.classList.add('show');
+    scanOverlay.classList.add("show");
+    requestAnimationFrame(function() {
+      requestAnimationFrame(repositionScanTime);
+    });
   });
 // ===== Close button → hide =====
   document.getElementById('scanClose').addEventListener('click', function(e) {
     e.stopPropagation();
     scanOverlay.classList.remove('show');
+    document.getElementById('scanTime').style.visibility = 'hidden';
   });
 
   // ===== Click image → hide =====
   document.getElementById('scanImg').addEventListener('click', function() {
     scanOverlay.classList.remove('show');
+    document.getElementById('scanTime').style.visibility = 'hidden';
   });
 
   // ===== All other interactive elements → no-op =====
@@ -551,6 +571,10 @@
       e.preventDefault();
       e.stopPropagation();
     });
+  });
+  // ===== Reposition on resize (e.g. phone rotate) =====
+  window.addEventListener("resize", function() {
+    if (scanOverlay.classList.contains("show")) repositionScanTime();
   });
 </script>
 
